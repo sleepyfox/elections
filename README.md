@@ -1,18 +1,22 @@
-# Elections kata
+# Election kata
 
-## Goal
+This repo derived from Software Craftsmanship Grenoble's original [here](https://github.com/SoftwareCraftsmanshipGrenoble/elections).
 
-You inherit this code base that is used to compute elections results in different ways.
+## Kata
 
-You goal will be to avoid any potential fraud, and add the following features:
-- Count as null a vote of an elector in another district
-- Make sure nobody can vote twice.
+You inherit a legacy code base that is used to compute election results in different ways.
 
-## How you can use this kata
+You goal will be to avoid potential fraud, while adding the following features:
 
-We have found this kata useful to:
-- train on refactoring
-- play with TCR (we recommand using this [awesome plugin](https://plugins.jetbrains.com/plugin/7655-limited-wip) for IntelliJ
-- discuss on tests
-- expriment on several designs
+- Nullify the vote of an elector in outside their district;
+- Invalidate duplicate votes.
+
+## Uses
+
+This kata can be used for:
+
+- Learning and improving refactoring skills;
+- Experimenting with TCR;
+- Discussing tests and testing strategies;
+- Exprimenting with design.
 
