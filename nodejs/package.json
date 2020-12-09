@@ -1,0 +1,27 @@
+{
+  "name": "election",
+  "version": "1.0.0",
+  "description": "A electronic voting based code kata",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine spec/*spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sleepyfox/elections.git"
+  },
+  "keywords": [
+    "vote",
+    "fraud",
+    "election"
+  ],
+  "author": "@sleepyfox <sleepyfox@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sleepyfox/elections/issues"
+  },
+  "homepage": "https://github.com/sleepyfox/elections#readme",
+  "devDependencies": {
+    "jasmine": "3.x"
+  }
+}
