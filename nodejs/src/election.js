@@ -80,7 +80,6 @@ class Election {
         let districtVotes = this.votesWithDistricts[entry]
         nbVotes += districtVotes.reduce((a, b) => a + b, 0)
       }
-
       for (let i = 0; i < this.officialCandidates.length; i++) {
         let index = this.candidates.indexOf(this.officialCandidates[i])
         for (let entry in this.votesWithDistricts) {
@@ -88,7 +87,6 @@ class Election {
           nbValidVotes += districtVotes[index]
         }
       }
-
       let officialCandidatesResult = {}
       for (let i = 0; i < this.officialCandidates.length; i++) {
         officialCandidatesResult[this.candidates[i]] = 0
@@ -119,12 +117,11 @@ class Election {
         }
         officialCandidatesResult[this.candidates[districtWinnerIndex]] = officialCandidatesResult[this.candidates[districtWinnerIndex]] + 1
       }
-      for (let i = 0; i < officialCandidatesResult.length; i++) {
-        let ratioCandidate = officialCandidatesResult[this.candidates[i]] / officialCandidatesResult.length * 100
+      for (let i = 0; i < Object.keys(officialCandidatesResult).length; i++) {
+        let ratioCandidate = officialCandidatesResult[this.candidates[i]] / Object.keys(officialCandidatesResult).length * 100
         results[this.candidates[i]] = ratioCandidate.toFixed(2) + "%"
       }
     }
-
     let blankResult = (blankVotes * 100) / nbVotes
     results["Blank"] = blankResult.toFixed(2) + "%"
 

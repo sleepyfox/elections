@@ -53,7 +53,6 @@ describe('Election Test', () => {
     election.voteFor("Simon", "", "District 2")
     election.voteFor("Carole", "", "District 3")
 
-    console.log(election)
     const results = election.results()
     const expectedResults = { "Jerry": "66.67%",
                               "Johnny": "33.33%",
