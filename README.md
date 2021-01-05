@@ -8,7 +8,7 @@ You inherit a legacy code base that is used to compute election results in diffe
 
 You goal will be to avoid potential fraud, while adding the following features:
 
-- Nullify the vote of an elector in outside their district;
+- Nullify the vote of an elector outside their electoral district;
 - Invalidate duplicate votes.
 
 ## Uses

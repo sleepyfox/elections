@@ -57,10 +57,10 @@ class Election
     nbValidVotes = 0
 
     if !@withDistrict
-      nbVotes = votesWithoutDistricts.reduce(0, :+)
+      nbVotes = @votesWithoutDistricts.reduce(:+)
       i = 0
       while i < @officialCandidates.count() do
-        index = @candidates.find_index { |c| c == @officialCandidates[i] }
+        index = @candidates.index(@officialCandidates[i])
         nbValidVotes += @votesWithoutDistricts[index]
         i += 1
       end
@@ -69,35 +69,41 @@ class Election
       while i < @votesWithoutDistricts.count() do
         candidatResult = (@votesWithoutDistricts[i] * 100) / nbValidVotes
         candidate = @candidates[i]
-        if @officialCandidates.includes?(candidate)
+        if @officialCandidates.include?(candidate)
           results[candidate] = "#{candidatResult.round(2)}%"
         else
           if @candidates[i].empty?
-            blankVotes += votesWithoutDistricts[i]
+            blankVotes += @votesWithoutDistricts[i]
           else
-            nullVotes += votesWithoutDistricts[i]
+            nullVotes += @votesWithoutDistricts[i]
           end
         end
         i += 1
       end
-    else # withDistrict == true
-      @votesWithDistricts.each do | entry | # entry is { k: [] }
-        ArrayList<Integer> districtVotes = entry.getValue()
-        nbVotes += districtVotes.stream().reduce(0, Integer::sum)
+    else
+      @votesWithDistricts.each do | district, votes |
+        nbVotes += votes.reduce(:+)
       end
 
-#             for (int i = 0; i < officialCandidates.size(); i++) {
-#                 int index = candidates.indexOf(officialCandidates.get(i))
-#                 for (Map.Entry<String, ArrayList<Integer>> entry : votesWithDistricts.entrySet()) {
-#                     ArrayList<Integer> districtVotes = entry.getValue()
-#                     nbValidVotes += districtVotes.get(index)
-#                 }
-#             }
+      j = 0
+      until j == @officialCandidates.size
+        index = @candidates.index(@officialCandidates[j])
+        k = 0
+        until k == @votesWithDistricts.size
+          districtVotes = @votesWithDistricts[k]
+          nbValidVotes += districtVotes[index]
+          k += 1 
+        end
+        j += 1
+      end
 
-#             Map<String, Integer> officialCandidatesResult = new HashMap<>()
-#             for (int i = 0; i < officialCandidates.size(); i++) {
-#                 officialCandidatesResult.put(candidates.get(i), 0)
-#             }
+      officialCandidatesResult = {}
+      i = 0
+      while i < @officialCandidates.size do
+        officialCandidatesResult[@candidates[i]] = 0
+        i += 1
+      end
+
 #             for (Map.Entry<String, ArrayList<Integer>> entry : votesWithDistricts.entrySet()) {
 #                 ArrayList<Float> districtResult = new ArrayList<>()
 #                 ArrayList<Integer> districtVotes = entry.getValue()
@@ -123,6 +129,8 @@ class Election
 #                 }
 #                 officialCandidatesResult.put(candidates.get(districtWinnerIndex), officialCandidatesResult.get(candidates.get(districtWinnerIndex)) + 1)
 #             }
+
+
 #             for (int i = 0; i < officialCandidatesResult.size(); i++) {
 #                 Float ratioCandidate = ((float) officialCandidatesResult.get(candidates.get(i))) / officialCandidatesResult.size() * 100
 #                 results.put(candidates.get(i), String.format(Locale.FRENCH, "%.2f%%", ratioCandidate))
